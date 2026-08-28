@@ -39,7 +39,10 @@ selector:
 
 idOrConstant:
      IDENTIFIER
-   | expConstant;
+   | expConstant
+   | TRUE
+   | FALSE
+   | NULL;
 
 tuple:
      idOrConstant idOrConstant
