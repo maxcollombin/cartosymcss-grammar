@@ -49,34 +49,34 @@ tuple:
    | tuple idOrConstant;
 
 expression:
-     idOrConstant
+     idOrConstant                                            # PrimaryExpr
 
-   | expression DOT IDENTIFIER   // Member access
+   | expression DOT IDENTIFIER                                # MemberAccessExpr
 
-   | expString
-   | expCall
-   | expArray
+   | expString                                               # StringExpr
+   | expCall                                                 # CallExpr
+   | expArray                                                # ArrayExpr
 
-   | expInstance
+   | expInstance                                             # InstanceExpr
 
-   | LPAR expression RPAR
+   | LPAR expression RPAR                                     # ParenExpr
 
-   | expression LSBR expConstant RSBR  // Indexing
+   | expression LSBR expConstant RSBR                         # IndexExpr
 
    // Operations
-   | expression arithmeticOperatorExp expression
-   | expression arithmeticOperatorMul expression
-   | expression arithmeticOperatorAdd expression
-   | expression binaryLogicalOperator expression
-   | expression relationalOperator expression
-   | expression betweenOperator expression AND expression
-   | expression QUESTION expression COLON expression
-   | unaryLogicalOperator expression
-   | unaryArithmeticOperator expression
+   | expression arithmeticOperatorExp expression             # PowExpr
+   | expression arithmeticOperatorMul expression             # MulExpr
+   | expression arithmeticOperatorAdd expression             # AddExpr
+   | expression binaryLogicalOperator expression             # LogicalExpr
+   | expression relationalOperator expression                # RelationalExpr
+   | expression betweenOperator expression AND expression    # BetweenExpr
+   | expression QUESTION expression COLON expression         # ConditionalExpr
+   | unaryLogicalOperator expression                         # UnaryLogicalExpr
+   | unaryArithmeticOperator expression                      # UnaryArithExpr
 
-   | tuple
+   | tuple                                                   # TupleExpr
 
-   | variable
+   | variable                                                # VariableExpr
    ;
 
 expConstant: NUMERIC_LITERAL UNIT? | HEX_LITERAL;
