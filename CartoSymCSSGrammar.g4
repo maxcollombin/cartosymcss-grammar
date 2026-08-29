@@ -1,5 +1,6 @@
 parser grammar CartoSymCSSGrammar;
 options { tokenVocab=CartoSymCSSLexer; }
+import CQL2Expression;
 
 ///////////////////////////////
 // High level style sheet rules
@@ -36,13 +37,13 @@ selector:
 
 ///////////////////////////////
 // Expressions
-
-idOrConstant:
-     IDENTIFIER
-   | expConstant
-   | TRUE
-   | FALSE
-   | NULL;
+//
+// The `expression` combinator lives here (not in CQL2Expression.g4): ANTLR
+// cannot let an importing grammar add alternatives to a left-recursive rule
+// defined in an imported one, and this rule mixes the pure CQL2 forms
+// (idOrConstant, expString, expCall, expArray, the *Operator rules — all
+// imported from CQL2Expression) with the CartoSym-specific ones
+// (expInstance, variable, tuple).
 
 tuple:
      idOrConstant idOrConstant
@@ -78,10 +79,6 @@ expression:
 
    | variable                                                # VariableExpr
    ;
-
-expConstant: NUMERIC_LITERAL UNIT? | HEX_LITERAL;
-
-expString: CHARACTER_LITERAL;
 
 ///////////////////////////////
 // Expressions: Instances
@@ -121,60 +118,3 @@ propertyAssignmentInferredList:
    | propertyAssignmentInferredList SEMI propertyAssignmentInferred
    | propertyAssignmentInferredList COMMA propertyAssignmentInferred
    ;
-
-///////////////////////////////
-// Expressions: Arrays
-
-expArray:
-     LSBR arrayElements? RSBR
-   | LPAR arrayElements? RPAR;
-
-arrayElements:
-     expression
-   | arrayElements COMMA expression ;
-
-///////////////////////////////
-// Expressions: Function calls
-
-expCall: IDENTIFIER LPAR arguments RPAR ;
-
-arguments:
-   expression
-   | arguments COMMA expression;
-
-binaryLogicalOperator: AND | OR ;
-
-unaryLogicalOperator: NOT ;
-
-unaryArithmeticOperator: PLUS | MINUS;
-
-arithmeticOperatorExp:
-   POW;
-
-arithmeticOperatorMul:
-     MUL
-   | DIV
-   | IDIV
-   | MOD;
-
-arithmeticOperatorAdd:
-     MINUS
-   | PLUS
-;
-
-relationalOperator:
-     EQ
-   | LT
-   | LTEQ
-   | GT
-   | GTEQ
-   | IN
-   | NOT IN
-   | IS
-   | IS NOT
-   | LIKE
-   | NOT LIKE;
-
-betweenOperator:
-     BETWEEN
-   | NOT BETWEEN;

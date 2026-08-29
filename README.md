@@ -9,6 +9,7 @@ This repository provides an ANTLR grammar to parse CartoSym-CSS, a CSS-inspired 
 ## Files
 
 - **`CartoSymCSSGrammar.g4`** - Parser grammar defining CartoSym-CSS syntax rules
+- **`CQL2Expression.g4`** - Parser grammar (imported by `CartoSymCSSGrammar.g4`) for the pure CQL2 expression vocabulary: literals, identifiers, operators, function calls, array literals
 - **`CartoSymCSSLexer.g4`** - Lexer grammar defining tokens and tokenization
 
 ## Usage
@@ -17,7 +18,7 @@ Generate parser/lexer classes with ANTLR 4:
 
 ```bash
 antlr4 CartoSymCSSLexer.g4
-antlr4 CartoSymCSSGrammar.g4
+antlr4 -lib . CartoSymCSSGrammar.g4   # pulls in CQL2Expression.g4
 ```
 
 ## Reference
