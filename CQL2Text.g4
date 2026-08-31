@@ -11,7 +11,9 @@
 // breaking CSCSS case-sensitivity or CQL2-Text case-insensitivity, so
 // this is its own standalone (combined lexer+parser) grammar, used only
 // by `cql2/from_text.py`'s standalone-CQL2-Text entry point — not by
-// anything that parses a `.cscss` file. See `docs/grammar-regeneration.md`.
+// anything that parses a `.cscss` file. Its own lexer+parser are
+// generated separately from `CartoSymCSSLexer.g4`/`CartoSymCSSGrammar.g4`
+// above, since it shares no tokens with them.
 //
 // Source of truth: the OGC-published ABNF grammar
 // (`cql2/standard/schema/cql2.bnf` in `opengeospatial/ogcapi-features`).
