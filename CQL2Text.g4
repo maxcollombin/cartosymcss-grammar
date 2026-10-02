@@ -2,13 +2,13 @@
 //
 // This is a *separate* grammar from `CQL2Expression.g4` / the composite
 // `CartoSymCSSGrammar.g4`: it does not share `CartoSymCSSLexer.g4`'s token
-// vocabulary and is not imported by it. Reason: CQL2-Text keywords
-// (AND/OR/NOT/LIKE/BETWEEN/IN/IS/NULL, S_*/T_*/A_* predicate names,
-// CASEI/ACCENTI, DATE/TIMESTAMP/INTERVAL, the WKT geometry tags) are
-// case-insensitive per the OGC standard, while `CartoSymCSSLexer.g4`'s
-// keywords are lowercase-only literals shared with the case-sensitive
-// CartoSym-CSS selector language. The two cannot be merged without either
-// breaking CSCSS case-sensitivity or CQL2-Text case-insensitivity, so
+// vocabulary and is not imported by it. Reason: CQL2-Text reserves many
+// more case-insensitive keywords (S_*/T_*/A_* predicate names,
+// CASEI/ACCENTI, DATE/TIMESTAMP/INTERVAL, the WKT geometry tags) than
+// `CartoSymCSSLexer.g4`, which only shares the core operator keywords
+// (AND/OR/NOT/LIKE/BETWEEN/IN/IS/NULL…, case-insensitive there too) and
+// treats everything else as a plain identifier or function name. Merging
+// the two would turn those names into reserved words in CartoSym-CSS, so
 // this is its own standalone (combined lexer+parser) grammar, used only
 // by `cql2/from_text.py`'s standalone-CQL2-Text entry point — not by
 // anything that parses a `.cscss` file. Its own lexer+parser are

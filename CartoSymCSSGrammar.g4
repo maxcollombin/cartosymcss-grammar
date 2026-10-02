@@ -65,15 +65,17 @@ expression:
    | expression LSBR expConstant RSBR                         # IndexExpr
 
    // Operations
+   // Earlier alternatives bind tighter (ANTLR left-recursion precedence).
    | expression arithmeticOperatorExp expression             # PowExpr
+   | unaryArithmeticOperator expression                      # UnaryArithExpr
    | expression arithmeticOperatorMul expression             # MulExpr
    | expression arithmeticOperatorAdd expression             # AddExpr
-   | expression binaryLogicalOperator expression             # LogicalExpr
    | expression relationalOperator expression                # RelationalExpr
    | expression betweenOperator expression AND expression    # BetweenExpr
-   | expression QUESTION expression COLON expression         # ConditionalExpr
    | unaryLogicalOperator expression                         # UnaryLogicalExpr
-   | unaryArithmeticOperator expression                      # UnaryArithExpr
+   | expression AND expression                               # LogicalExpr
+   | expression OR expression                                # LogicalExpr
+   | expression QUESTION expression COLON expression         # ConditionalExpr
 
    | tuple                                                   # TupleExpr
 

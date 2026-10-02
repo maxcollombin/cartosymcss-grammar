@@ -49,8 +49,6 @@ arguments:
 ///////////////////////////////
 // Operators
 
-binaryLogicalOperator: AND | OR ;
-
 unaryLogicalOperator: NOT ;
 
 unaryArithmeticOperator: PLUS | MINUS;
@@ -71,6 +69,7 @@ arithmeticOperatorAdd:
 
 relationalOperator:
      EQ
+   | NEQ
    | LT
    | LTEQ
    | GT
