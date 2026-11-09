@@ -75,7 +75,7 @@ expression:
    | unaryLogicalOperator expression                         # UnaryLogicalExpr
    | expression AND expression                               # LogicalExpr
    | expression OR expression                                # LogicalExpr
-   | expression QUESTION expression COLON expression         # ConditionalExpr
+   | <assoc=right> expression QUESTION expression COLON expression  # ConditionalExpr
 
    | tuple                                                   # TupleExpr
 
